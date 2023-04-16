@@ -1,4 +1,6 @@
+import 'package:extension_tile/card_detail/card_detail.dart';
 import 'package:extension_tile/model/my_card_data.dart';
+import 'package:extension_tile/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'model/cart_model.dart';
@@ -48,17 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (BuildContext context, int index) {
           var mySingleData = myData[index];
 
-          return Column(children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                fit: BoxFit.cover,
-                mySingleData.imageUrl,
-              ),
-            ),
-            Text(mySingleData.cardTitle),
-            Text(mySingleData.cardSubtitle)
-          ],
+          return MyCustomView(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return CardScreen(cardModel: mySingleData);
+                  },
+                ),
+              );
+            },
+            cardModel: mySingleData,
           );
         },
       ),
